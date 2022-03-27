@@ -20,6 +20,17 @@ public class CompanyService {
         companyRepository.save(company);
     }
     public void seperateBusiness(Company company){
+        if(company.getType()==CompanyType.ACCOMMODATION){
 
+        }
+        else if(company.getType()==CompanyType.RESTAURANT){
+
+        }
+        else if(company.getType()==CompanyType.VACATION){
+
+        }
+        else{
+
+        }
     }
 }

@@ -68,4 +68,12 @@ public class Company {
     public void setCompanyPhone(Long companyPhone) {
         this.companyPhone = companyPhone;
     }
+
+    public CompanyType getType() {
+        return type;
+    }
+
+    public void setType(CompanyType type) {
+        this.type = type;
+    }
 }

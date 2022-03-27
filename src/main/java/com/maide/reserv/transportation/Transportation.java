@@ -1,11 +1,9 @@
-package com.maide.reserv.accommodation;
-
-import com.maide.reserv.company.Company;
+package com.maide.reserv.transportation;
 
 import javax.persistence.*;
 
 @Entity
-public class Accommodation {
+public class Transportation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false,updatable = false)
@@ -14,5 +12,4 @@ public class Accommodation {
     private String address;
     private Long phone;
     private String email;
-
 }
