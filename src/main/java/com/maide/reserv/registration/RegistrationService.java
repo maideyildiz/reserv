@@ -2,6 +2,7 @@ package com.maide.reserv.registration;
 
 import com.maide.reserv.company.Company;
 import com.maide.reserv.company.CompanyService;
+import com.maide.reserv.company.CompanyType;
 import com.maide.reserv.customer.Customer;
 import com.maide.reserv.customer.CustomerService;
 import com.maide.reserv.email.EmailSender;
@@ -100,7 +101,8 @@ public class RegistrationService {
                             user.getName(),
                             user.getEmail(),
                             user.getPhone(),
-                            user.getAddress()
+                            user.getAddress(),
+                            CompanyType.ACCOMMODATION
                     )
             );
         }

@@ -2,6 +2,7 @@ package com.maide.reserv.company;
 
 import com.maide.reserv.reservation.Reservation;
 import com.maide.reserv.user.User;
+import com.maide.reserv.user.UserRole;
 
 import javax.persistence.*;
 import java.util.List;
@@ -16,6 +17,8 @@ public class Company {
     private String companyEmail;
     private Long companyPhone;
     private String companyAddress;
+    @Enumerated(EnumType.STRING)
+    private CompanyType type;
     @ManyToMany
     @JoinTable(
             name = "CompanyReservations",
@@ -26,11 +29,12 @@ public class Company {
     public Company() {
     }
 
-    public Company(String companyName, String companyEmail, Long companyPhone, String companyAddress) {
+    public Company(String companyName, String companyEmail, Long companyPhone, String companyAddress,CompanyType type) {
         this.companyName = companyName;
         this.companyEmail = companyEmail;
         this.companyPhone = companyPhone;
         this.companyAddress = companyAddress;
+        this.type=type;
     }
 
     public String getCompanyName() {
