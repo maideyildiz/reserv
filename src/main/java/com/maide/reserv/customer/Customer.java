@@ -1,12 +1,14 @@
 package com.maide.reserv.customer;
 
 import com.maide.reserv.payment.CreditCart;
+import com.maide.reserv.reservation.Reservation;
 import com.maide.reserv.user.User;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Customer{
@@ -19,6 +21,7 @@ public class Customer{
     private String address;
     private Long phone;
     private String email;
+
     @ManyToMany
     @JoinTable(
             name = "CustomerCards",
@@ -27,7 +30,13 @@ public class Customer{
     )
     @Column(nullable = true,updatable = true)
     private List<CreditCart> cards;
-
+    @ManyToMany
+    @JoinTable(
+            name = "CustomerReservations",
+            joinColumns = @JoinColumn(name = "reservationId"),
+            inverseJoinColumns = @JoinColumn(name = "customerId")
+    )
+    private List<Reservation> reservations;
     public Customer() {
     }
 

@@ -1,8 +1,10 @@
 package com.maide.reserv.company;
 
+import com.maide.reserv.reservation.Reservation;
 import com.maide.reserv.user.User;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 public class Company {
@@ -14,7 +16,13 @@ public class Company {
     private String companyEmail;
     private Long companyPhone;
     private String companyAddress;
-
+    @ManyToMany
+    @JoinTable(
+            name = "CompanyReservations",
+            joinColumns = @JoinColumn(name = "reservationId"),
+            inverseJoinColumns = @JoinColumn(name = "companyId")
+    )
+    private List<Reservation> reservationList;
     public Company() {
     }
 
