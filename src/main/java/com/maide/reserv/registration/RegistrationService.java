@@ -1,5 +1,7 @@
 package com.maide.reserv.registration;
 
+import com.maide.reserv.company.Company;
+import com.maide.reserv.company.CompanyService;
 import com.maide.reserv.customer.Customer;
 import com.maide.reserv.customer.CustomerService;
 import com.maide.reserv.email.EmailSender;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -24,6 +27,7 @@ public class RegistrationService {
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
     private final CustomerService customerService;
+    private final CompanyService companyService;
 
 
     public String register(RegistrationRequest request) {
@@ -38,6 +42,7 @@ public class RegistrationService {
                         request.getEmail(),
                         request.getPassword(),
                         request.getPhone(),
+                        request.getAddress(),
                         UserRole.CUSTOMER
                 )
         );
@@ -58,6 +63,7 @@ public class RegistrationService {
                         request.getEmail(),
                         request.getPassword(),
                         request.getPhone(),
+                        request.getAddress(),
                         UserRole.COMPANY
                 )
         );
@@ -86,13 +92,24 @@ public class RegistrationService {
         confirmationTokenService.setConfirmedAt(token);
         userDetailsService.enableUser(
                 confirmationToken.getUser().getEmail());
-        User user=userDetailsService.loadUserByToken(token);
+        ConfirmationToken _confirmationToken=userDetailsService.loadUserByToken(token);
+        User user=userDetailsService.userWithId(_confirmationToken.getId());
         if(user.getRole()==UserRole.COMPANY){
-
+            companyService.createCompany(
+                    new Company(
+                            user.getName(),
+                            user.getEmail(),
+                            user.getPhone(),
+                            user.getAddress()
+                    )
+            );
         }
         else if(user.getRole()==UserRole.CUSTOMER){
             customerService.createCustomer(
                     new Customer(
+                            user.getName(),
+                            user.getSurname(),
+                            user.getAddress(),
                             user.getPhone(),
                             user.getEmail()
                     )

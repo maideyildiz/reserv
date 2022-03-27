@@ -1,6 +1,5 @@
 package com.maide.reserv.customer;
 
-import com.maide.reserv.registration.token.ConfirmationToken;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 

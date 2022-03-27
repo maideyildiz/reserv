@@ -11,13 +11,18 @@ public class Company {
     @Column(nullable = false,updatable = false)
     private Long id;
     private String companyName;
+    private String companyEmail;
+    private Long companyPhone;
     private String companyAddress;
 
     public Company() {
     }
 
-    public Company(String companyName) {
+    public Company(String companyName, String companyEmail, Long companyPhone, String companyAddress) {
         this.companyName = companyName;
+        this.companyEmail = companyEmail;
+        this.companyPhone = companyPhone;
+        this.companyAddress = companyAddress;
     }
 
     public String getCompanyName() {
@@ -34,5 +39,21 @@ public class Company {
 
     public void setCompanyAddress(String companyAddress) {
         this.companyAddress = companyAddress;
+    }
+
+    public String getCompanyEmail() {
+        return companyEmail;
+    }
+
+    public void setCompanyEmail(String companyEmail) {
+        this.companyEmail = companyEmail;
+    }
+
+    public Long getCompanyPhone() {
+        return companyPhone;
+    }
+
+    public void setCompanyPhone(Long companyPhone) {
+        this.companyPhone = companyPhone;
     }
 }

@@ -11,6 +11,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.NoSuchElementException;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -30,9 +32,16 @@ public class CustomUserDetailsService implements UserDetailsService {
         return userRepository.findByEmail(email)
                 .orElseThrow(()->new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG,email)));
     }
-    public User loadUserByToken(String token)
+    public User userWithId(Long id){
+        boolean userExist= userRepository.findById(id).isPresent();
+        if(userExist==false){
+            throw new IllegalStateException("user with id doesn't exist!!");
+        }
+        return userRepository.findById(id).get();
+    }
+    public ConfirmationToken loadUserByToken(String token)
             throws UsernameNotFoundException {
-        return userRepository.findByToken(token)
+        return confirmationTokenService.getToken(token)
                 .orElseThrow(()->new UsernameNotFoundException(String.format(USER_WITH_TOKEN_NOT_FOUND_MSG,token)));
     }
     public String signUpUser(User user){

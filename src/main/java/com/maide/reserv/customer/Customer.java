@@ -14,6 +14,9 @@ public class Customer{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false,updatable = false)
     private Long id;
+    private String name;
+    private String surname;
+    private String address;
     private Long phone;
     private String email;
     @ManyToMany
@@ -28,9 +31,12 @@ public class Customer{
     public Customer() {
     }
 
-    public Customer(Long phone,String email) {
+    public Customer(String name, String surname, String address, Long phone, String email) {
+        this.name = name;
+        this.surname = surname;
+        this.address = address;
         this.phone = phone;
-        this.email=email;
+        this.email = email;
     }
 
     public Long getId() {
@@ -57,6 +63,29 @@ public class Customer{
         this.email = email;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public List<CreditCart> getCards() {
         return cards;
@@ -66,12 +95,5 @@ public class Customer{
         this.cards = cards;
     }
 
-    @Override
-    public String toString() {
-        return "Customer{" +
-                "id=" + id +
-                ", phone=" + phone +
-                ", cards=" + cards +
-                '}';
-    }
+
 }

@@ -33,6 +33,7 @@ public class User implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole role;
     private Long phone;
+    private String address;
     private Boolean locked=false;
     private Boolean enabled=false;
 
@@ -41,12 +42,14 @@ public class User implements UserDetails {
                 String email,
                 String password,
                 Long phone,
+                String address,
                 UserRole role) {
         this.name = name;
         this.surname = surname;
         this.email = email;
         this.password = password;
         this.phone=phone;
+        this.address=address;
         this.role = role;
     }
 
@@ -69,6 +72,10 @@ public class User implements UserDetails {
 
     public Long getPhone() {
         return phone;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     @Override
