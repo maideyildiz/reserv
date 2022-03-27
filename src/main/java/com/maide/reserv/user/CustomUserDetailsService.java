@@ -19,6 +19,8 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     private final static String USER_NOT_FOUND_MSG=
             "User with email %s not found";
+    private final static String USER_WITH_TOKEN_NOT_FOUND_MSG=
+            "User with token %s not found";
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
@@ -27,6 +29,11 @@ public class CustomUserDetailsService implements UserDetailsService {
             throws UsernameNotFoundException {
         return userRepository.findByEmail(email)
                 .orElseThrow(()->new UsernameNotFoundException(String.format(USER_NOT_FOUND_MSG,email)));
+    }
+    public User loadUserByToken(String token)
+            throws UsernameNotFoundException {
+        return userRepository.findByToken(token)
+                .orElseThrow(()->new UsernameNotFoundException(String.format(USER_WITH_TOKEN_NOT_FOUND_MSG,token)));
     }
     public String signUpUser(User user){
         boolean userExist=userRepository.findByEmail(user.getEmail()).isPresent();

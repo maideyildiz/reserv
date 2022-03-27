@@ -1,5 +1,7 @@
 package com.maide.reserv.registration;
 
+import com.maide.reserv.customer.Customer;
+import com.maide.reserv.customer.CustomerService;
 import com.maide.reserv.email.EmailSender;
 import com.maide.reserv.registration.token.ConfirmationToken;
 import com.maide.reserv.registration.token.ConfirmationTokenService;
@@ -21,6 +23,7 @@ public class RegistrationService {
     private final EmailValidator emailValidator;
     private final ConfirmationTokenService confirmationTokenService;
     private final EmailSender emailSender;
+    private final CustomerService customerService;
 
 
     public String register(RegistrationRequest request) {
@@ -34,7 +37,28 @@ public class RegistrationService {
                         request.getSurname(),
                         request.getEmail(),
                         request.getPassword(),
+                        request.getPhone(),
                         UserRole.CUSTOMER
+                )
+        );
+        String link="http://localhost:8080/api/reserv/registration/confirm?token="+token;
+        emailSender.send(request.getEmail(),buildEmail(request.getName(),link));
+
+        return token;
+    }
+    public String registerAsCompany(RegistrationRequest request) {
+        boolean isValid=emailValidator.test(request.getEmail());
+        if(!isValid){
+            throw new IllegalStateException("email is not valid");
+        }
+        String token=userDetailsService.signUpUser(
+                new User(
+                        request.getName(),
+                        request.getSurname(),
+                        request.getEmail(),
+                        request.getPassword(),
+                        request.getPhone(),
+                        UserRole.COMPANY
                 )
         );
         String link="http://localhost:8080/api/reserv/registration/confirm?token="+token;
@@ -62,6 +86,18 @@ public class RegistrationService {
         confirmationTokenService.setConfirmedAt(token);
         userDetailsService.enableUser(
                 confirmationToken.getUser().getEmail());
+        User user=userDetailsService.loadUserByToken(token);
+        if(user.getRole()==UserRole.COMPANY){
+
+        }
+        else if(user.getRole()==UserRole.CUSTOMER){
+            customerService.createCustomer(
+                    new Customer(
+                            user.getPhone(),
+                            user.getEmail()
+                    )
+            );
+        }
         return "confirmed";
     }
 

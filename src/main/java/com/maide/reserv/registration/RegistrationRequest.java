@@ -13,5 +13,6 @@ public class RegistrationRequest {
     private final String name;
     private final String surname;
     private final String password;
+    private final Long phone;
     private final String email;
 }

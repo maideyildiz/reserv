@@ -1,6 +1,7 @@
 package com.maide.reserv.customer;
 
 import com.maide.reserv.payment.CreditCart;
+import com.maide.reserv.user.User;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -8,13 +9,13 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Customer implements Serializable {
+public class Customer{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false,updatable = false)
     private Long id;
     private Long phone;
-    private Date dateOfBirth;
+    private String email;
     @ManyToMany
     @JoinTable(
             name = "CustomerCards",
@@ -27,10 +28,9 @@ public class Customer implements Serializable {
     public Customer() {
     }
 
-    public Customer(Long id, Long phone, Date dateOfBirth) {
-        this.id = id;
+    public Customer(Long phone,String email) {
         this.phone = phone;
-        this.dateOfBirth = dateOfBirth;
+        this.email=email;
     }
 
     public Long getId() {
@@ -49,13 +49,14 @@ public class Customer implements Serializable {
         this.phone = phone;
     }
 
-    public Date getDateOfBirth() {
-        return dateOfBirth;
+    public String getEmail() {
+        return email;
     }
 
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setEmail(String email) {
+        this.email = email;
     }
+
 
     public List<CreditCart> getCards() {
         return cards;
@@ -70,7 +71,6 @@ public class Customer implements Serializable {
         return "Customer{" +
                 "id=" + id +
                 ", phone=" + phone +
-                ", dateOfBirth=" + dateOfBirth +
                 ", cards=" + cards +
                 '}';
     }
