@@ -34,6 +34,7 @@ public class User implements UserDetails {
     private UserRole role;
     private Long phone;
     private String address;
+    private int businessType;
     private Boolean locked=false;
     private Boolean enabled=false;
 
@@ -43,7 +44,8 @@ public class User implements UserDetails {
                 String password,
                 Long phone,
                 String address,
-                UserRole role) {
+                UserRole role,
+                int businessType) {
         this.name = name;
         this.surname = surname;
         this.email = email;
@@ -51,6 +53,7 @@ public class User implements UserDetails {
         this.phone=phone;
         this.address=address;
         this.role = role;
+        this.businessType=businessType;
     }
 
     @Override
@@ -76,6 +79,10 @@ public class User implements UserDetails {
 
     public String getAddress() {
         return address;
+    }
+
+    public int getBusinessType() {
+        return businessType;
     }
 
     @Override

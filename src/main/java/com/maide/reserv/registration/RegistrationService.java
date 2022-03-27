@@ -44,7 +44,8 @@ public class RegistrationService {
                         request.getPassword(),
                         request.getPhone(),
                         request.getAddress(),
-                        UserRole.CUSTOMER
+                        UserRole.CUSTOMER,
+                        request.getBusinessType()
                 )
         );
         String link="http://localhost:8080/api/reserv/registration/confirm?token="+token;
@@ -65,7 +66,8 @@ public class RegistrationService {
                         request.getPassword(),
                         request.getPhone(),
                         request.getAddress(),
-                        UserRole.COMPANY
+                        UserRole.COMPANY,
+                        request.getBusinessType()
                 )
         );
         String link="http://localhost:8080/api/reserv/registration/confirm?token="+token;
@@ -96,15 +98,51 @@ public class RegistrationService {
         ConfirmationToken _confirmationToken=userDetailsService.loadUserByToken(token);
         User user=userDetailsService.userWithId(_confirmationToken.getId());
         if(user.getRole()==UserRole.COMPANY){
-            companyService.createCompany(
-                    new Company(
-                            user.getName(),
-                            user.getEmail(),
-                            user.getPhone(),
-                            user.getAddress(),
-                            CompanyType.ACCOMMODATION
-                    )
-            );
+            if(user.getBusinessType()==0) {
+                companyService.createCompany(
+                        new Company(
+                                user.getName(),
+                                user.getEmail(),
+                                user.getPhone(),
+                                user.getAddress(),
+                                CompanyType.ACCOMMODATION
+                        )
+                );
+            }
+            else if(user.getBusinessType()==1){
+                companyService.createCompany(
+                        new Company(
+                                user.getName(),
+                                user.getEmail(),
+                                user.getPhone(),
+                                user.getAddress(),
+                                CompanyType.RESTAURANT
+                        )
+                );
+            }
+            else if(user.getBusinessType()==2){
+                companyService.createCompany(
+                        new Company(
+                                user.getName(),
+                                user.getEmail(),
+                                user.getPhone(),
+                                user.getAddress(),
+                                CompanyType.VACATION
+                        )
+                );
+            }
+            else if (user.getBusinessType()==3){
+                companyService.createCompany(
+                        new Company(
+                                user.getName(),
+                                user.getEmail(),
+                                user.getPhone(),
+                                user.getAddress(),
+                                CompanyType.TRANSPORTATION
+                        )
+                );
+            }
+
         }
         else if(user.getRole()==UserRole.CUSTOMER){
             customerService.createCustomer(

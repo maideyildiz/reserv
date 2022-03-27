@@ -13,8 +13,8 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(nullable = false,updatable = false)
     private Long id;
-    @ManyToMany(mappedBy = "CustomerReservation")
+    @ManyToMany(mappedBy = "reservations")
     private List<Customer> customerList;
-    @ManyToMany(mappedBy = "companyReservation")
+    @ManyToMany(mappedBy = "reservationList")
     private List<Company> companyList;
 }

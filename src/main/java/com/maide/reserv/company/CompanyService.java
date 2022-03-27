@@ -19,4 +19,7 @@ public class CompanyService {
         }
         companyRepository.save(company);
     }
+    public void seperateBusiness(Company company){
+
+    }
 }

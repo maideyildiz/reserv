@@ -16,4 +16,5 @@ public class RegistrationRequest {
     private final Long phone;
     private final String email;
     private final String address;
+    private final int businessType;
 }
