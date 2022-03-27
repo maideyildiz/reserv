@@ -4,5 +4,6 @@ public enum CompanyType {
     ACCOMMODATION,
     RESTAURANT,
     VACATION,
-    TRANSPORTATION
+    TRANSPORTATION,
+    EMPTY
 }

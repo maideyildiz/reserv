@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 @Service
 @AllArgsConstructor
@@ -76,7 +77,7 @@ public class RegistrationService {
         return token;
     }
     @Transactional
-    public String confirmToken(String token) {
+    public String confirmToken(String token){
         ConfirmationToken confirmationToken = confirmationTokenService
                 .getToken(token)
                 .orElseThrow(() ->
@@ -98,51 +99,7 @@ public class RegistrationService {
         ConfirmationToken _confirmationToken=userDetailsService.loadUserByToken(token);
         User user=userDetailsService.userWithId(_confirmationToken.getId());
         if(user.getRole()==UserRole.COMPANY){
-            if(user.getBusinessType()==0) {
-                companyService.createCompany(
-                        new Company(
-                                user.getName(),
-                                user.getEmail(),
-                                user.getPhone(),
-                                user.getAddress(),
-                                CompanyType.ACCOMMODATION
-                        )
-                );
-            }
-            else if(user.getBusinessType()==1){
-                companyService.createCompany(
-                        new Company(
-                                user.getName(),
-                                user.getEmail(),
-                                user.getPhone(),
-                                user.getAddress(),
-                                CompanyType.RESTAURANT
-                        )
-                );
-            }
-            else if(user.getBusinessType()==2){
-                companyService.createCompany(
-                        new Company(
-                                user.getName(),
-                                user.getEmail(),
-                                user.getPhone(),
-                                user.getAddress(),
-                                CompanyType.VACATION
-                        )
-                );
-            }
-            else if (user.getBusinessType()==3){
-                companyService.createCompany(
-                        new Company(
-                                user.getName(),
-                                user.getEmail(),
-                                user.getPhone(),
-                                user.getAddress(),
-                                CompanyType.TRANSPORTATION
-                        )
-                );
-            }
-
+            companyService.separateBusiness(user);
         }
         else if(user.getRole()==UserRole.CUSTOMER){
             customerService.createCustomer(
@@ -157,7 +114,6 @@ public class RegistrationService {
         }
         return "confirmed";
     }
-
     private String buildEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
