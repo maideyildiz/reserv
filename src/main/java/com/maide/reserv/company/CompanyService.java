@@ -115,16 +115,5 @@ public class CompanyService {
         else if(user.getBusinessType()==3){
             setVacationCompany(user);
         }
-        else{
-            createCompany(
-                    new Company(
-                            user.getName(),
-                            user.getEmail(),
-                            user.getPhone(),
-                            user.getAddress(),
-                            CompanyType.EMPTY
-                    )
-            );
-        }
     }
 }

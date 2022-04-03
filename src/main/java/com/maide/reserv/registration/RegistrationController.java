@@ -3,9 +3,10 @@ package com.maide.reserv.registration;
 import com.maide.reserv.company.Company;
 import com.maide.reserv.company.CompanyService;
 import lombok.AllArgsConstructor;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+@Controller
 @RequestMapping(path = "/api/reserv/registration")
 @AllArgsConstructor
 public class RegistrationController {
@@ -13,6 +14,7 @@ public class RegistrationController {
     private final CompanyService companyService;
     @PostMapping
     public String register(@RequestBody RegistrationRequest request){
+
         return registrationService.register(request);
     }
     @PostMapping("/company")
@@ -21,7 +23,8 @@ public class RegistrationController {
     }
     @GetMapping(path = "/confirm")
     public String confirm(@RequestParam("token") String token) throws InterruptedException {
-        return registrationService.confirmToken(token);
+        registrationService.confirmToken(token);
+        return "home";
     }
 
 }

@@ -1,5 +1,6 @@
 package com.maide.reserv.security.config;
 
+import com.maide.reserv.user.UserRole;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,13 +22,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
-                .csrf().disable()
+                .csrf().disable() //TODO:open this up after frontend is done!!!
                 .authorizeRequests()
-                .antMatchers("/api/**")
-                .permitAll()
+                .antMatchers("/","index").permitAll()
                 .anyRequest()
                 .authenticated().and()
-                .formLogin();
+                .formLogin()
+                .loginPage("/login").permitAll();
     }
 
     @Override
