@@ -3,6 +3,10 @@ package com.maide.reserv.customer;
 import com.maide.reserv.payment.CreditCart;
 import com.maide.reserv.reservation.Reservation;
 import com.maide.reserv.user.User;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -10,6 +14,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+@Getter
+@Setter
+@EqualsAndHashCode
+@NoArgsConstructor
 @Entity
 public class Customer{
     @Id
@@ -37,9 +45,6 @@ public class Customer{
             inverseJoinColumns = @JoinColumn(name = "customerId")
     )
     private List<Reservation> reservations;
-    public Customer() {
-    }
-
     public Customer(String name, String surname, String address, Long phone, String email) {
         this.name = name;
         this.surname = surname;
@@ -47,62 +52,5 @@ public class Customer{
         this.phone = phone;
         this.email = email;
     }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getPhone() {
-        return phone;
-    }
-
-    public void setPhone(Long phone) {
-        this.phone = phone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public List<CreditCart> getCards() {
-        return cards;
-    }
-
-    public void setCards(List<CreditCart> cards) {
-        this.cards = cards;
-    }
-
 
 }

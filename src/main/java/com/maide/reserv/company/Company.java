@@ -3,10 +3,18 @@ package com.maide.reserv.company;
 import com.maide.reserv.reservation.Reservation;
 import com.maide.reserv.user.User;
 import com.maide.reserv.user.UserRole;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.List;
 
+@Getter
+@Setter
+@EqualsAndHashCode
+@NoArgsConstructor
 @Entity
 public class Company {
     @Id
@@ -26,8 +34,6 @@ public class Company {
             inverseJoinColumns = @JoinColumn(name = "companyId")
     )
     private List<Reservation> reservationList;
-    public Company() {
-    }
 
     public Company(String companyName, String companyEmail, Long companyPhone, String companyAddress,CompanyType type) {
         this.companyName = companyName;
@@ -35,49 +41,5 @@ public class Company {
         this.companyPhone = companyPhone;
         this.companyAddress = companyAddress;
         this.type=type;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String getCompanyAddress() {
-        return companyAddress;
-    }
-
-    public void setCompanyAddress(String companyAddress) {
-        this.companyAddress = companyAddress;
-    }
-
-    public String getCompanyEmail() {
-        return companyEmail;
-    }
-
-    public void setCompanyEmail(String companyEmail) {
-        this.companyEmail = companyEmail;
-    }
-
-    public Long getCompanyPhone() {
-        return companyPhone;
-    }
-
-    public void setCompanyPhone(Long companyPhone) {
-        this.companyPhone = companyPhone;
-    }
-
-    public CompanyType getType() {
-        return type;
-    }
-
-    public void setType(CompanyType type) {
-        this.type = type;
     }
 }

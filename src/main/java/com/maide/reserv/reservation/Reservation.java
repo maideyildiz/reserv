@@ -2,12 +2,20 @@ package com.maide.reserv.reservation;
 
 import com.maide.reserv.company.Company;
 import com.maide.reserv.customer.Customer;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+@Getter
+@Setter
+@EqualsAndHashCode
+@NoArgsConstructor
 @Entity
 public class Reservation {
     @Id
