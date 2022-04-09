@@ -37,6 +37,10 @@ public class Company {
         this.type=type;
     }
 
+    public Long getId() {
+        return id;
+    }
+
     public String getCompanyName() {
         return companyName;
     }
