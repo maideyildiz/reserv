@@ -1,6 +1,6 @@
 package com.maide.reserv.seat;
 
-import com.maide.reserv.Vehicle.Vehicle;
+import com.maide.reserv.vehicle.Vehicle;
 import com.maide.reserv.type.ReservationType;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;

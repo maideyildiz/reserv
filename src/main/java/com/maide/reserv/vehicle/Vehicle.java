@@ -1,4 +1,4 @@
-package com.maide.reserv.Vehicle;
+package com.maide.reserv.vehicle;
 
 import com.maide.reserv.seat.Seat;
 import lombok.EqualsAndHashCode;
