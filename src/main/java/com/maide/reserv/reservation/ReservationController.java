@@ -12,15 +12,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @AllArgsConstructor
 public class ReservationController {
 
-    @PostMapping("reserve")
+    @PostMapping("/reserve")
     public void makeReservation(){
 
     }
-    @GetMapping("myReservations")
+    @PostMapping("/createReservation")
+    public void createReservation(){
+
+    }
+    @GetMapping("/myReservations")
     public void getCustomerReservations(){
 
     }
-    @GetMapping("companyReservations")
+    @GetMapping("/companyReservations")
     public void getCompanyReservations(){
 
     }
