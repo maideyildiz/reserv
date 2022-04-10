@@ -1,4 +1,4 @@
-# <img src="/logo.png" alt="reserv logo" style="height: 80px; width:80px;"/> reserv
+# <img src="/logo.png" alt="reserv logo" style="height: 100px; width:100px;"/> reserv
 
 
 -This Java Spring Boot application is designed for users to make reservation to anything!
